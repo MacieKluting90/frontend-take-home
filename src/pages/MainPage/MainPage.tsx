@@ -54,14 +54,16 @@ export function MainPage() {
             checked={forceError}
             onChange={(event) => setForceError(event.target.checked)}
           />
-          <label htmlFor="forceError">Test Error State</label>
+          <label className="error-toggle-label" htmlFor="forceError">
+            Test Error State
+          </label>
         </div>
       </div>
 
       {loading ? (
         <span>Loading...</span>
       ) : (
-        <>
+        <div className="results">
           {showErrorMessage ? (
             <span>Oh no! Something went wrong... please try again.</span>
           ) : (
@@ -78,7 +80,7 @@ export function MainPage() {
               </div>
             )
           )}
-        </>
+        </div>
       )}
     </div>
   );

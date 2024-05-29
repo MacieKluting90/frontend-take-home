@@ -3,6 +3,9 @@
     flex-direction: column;
     gap: 16px;
     padding: 24px;
+    max-height: 100vh;
+    overflow: auto;
+    box-sizing: border-box;
 }
 
 .search-toolbar {
@@ -14,12 +17,19 @@
 .error-toggle {
     display: flex;
     gap: 4px;
+    align-items: center;
+}
+
+.error-toggle-label {
+    font-size: 12px;
 }
 
 .results {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    overflow-y: auto;
+    flex: 1;
 }
 
 .result-item {
@@ -27,4 +37,7 @@
     flex-direction: column;
     gap: 4px;
     align-items: start;
+    border: 1px solid darkgray;
+    border-radius: 4px;
+    padding: 8px;
 }
