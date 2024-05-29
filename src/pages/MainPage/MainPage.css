@@ -11,6 +11,11 @@
     gap: 8px;
 }
 
+.error-toggle {
+    display: flex;
+    gap: 4px;
+}
+
 .results {
     display: flex;
     flex-direction: column;
