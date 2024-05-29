@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
 import "./MainPage.css";
+import { Package } from "./types";
 
 export function MainPage() {
   const [loading, setLoading] = useState(false);
   const [searchString, setSearchString] = useState("");
-  const [packages, setPackages] = useState<any[]>([]);
+  const [packages, setPackages] = useState<Package[]>([]);
 
   const getNpmPackages = async (queryString: string) => {
     setLoading(true);
@@ -15,8 +16,6 @@ export function MainPage() {
     setPackages(data);
     setLoading(false);
   };
-
-  const hasResults = packages.length > 0 && !!searchString;
 
   return (
     <div className="page">
@@ -34,11 +33,23 @@ export function MainPage() {
         <button onClick={() => getNpmPackages(searchString)}>Search</button>
       </div>
 
-      {loading && <span>Loading...</span>}
-      {packages.length > 0 && (
-        <div className="results">
-          <span>Found {packages.length} packages!</span>
-        </div>
+      {loading ? (
+        <span>Loading...</span>
+      ) : (
+        <>
+          {packages.length > 0 && (
+            <div className="results">
+              {packages.map((pkg) => (
+                <div className="result-item" key={pkg.package.name}>
+                  <strong>
+                    <a href={pkg.package.links.npm}>{pkg.package.name}</a>
+                  </strong>
+                  <span>{pkg.package.description}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   );
