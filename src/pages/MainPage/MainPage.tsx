@@ -5,16 +5,23 @@ import { Package } from "./types";
 
 export function MainPage() {
   const [loading, setLoading] = useState(false);
+  const [showError, setShowError] = useState(false);
   const [searchString, setSearchString] = useState("");
   const [packages, setPackages] = useState<Package[]>([]);
 
   const getNpmPackages = async (queryString: string) => {
     setLoading(true);
-    const { data } = await axios.get(
-      `https://api.npms.io/v2/search/suggestions?q=${queryString}`,
-    );
-    setPackages(data);
-    setLoading(false);
+
+    try {
+      const { data } = await axios.get(
+        `https://api.npms.io/v2/search/suggestions?q=${queryString}`,
+      );
+      setPackages(data);
+    } catch {
+      setShowError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -37,6 +44,10 @@ export function MainPage() {
         <span>Loading...</span>
       ) : (
         <>
+          {showError && (
+            <span>Oh no! Something went wrong... please try again.</span>
+          )}
+
           {packages.length > 0 && (
             <div className="results">
               {packages.map((pkg) => (
