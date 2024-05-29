@@ -75,6 +75,12 @@ export function MainPage() {
                       <a href={pkg.package.links.npm}>{pkg.package.name}</a>
                     </strong>
                     <span>{pkg.package.description}</span>
+
+                    <div className="keyword-list">
+                      {pkg.package.keywords?.map((keyword) => (
+                        <span className="keyword">{keyword}</span>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>
